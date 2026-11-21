@@ -1,0 +1,1 @@
+Unmodified @relate/relate-wasm v1.2.0 from the official npm registry. This demo hosts the unmodified JavaScript bindings and fetches the pinned WASM binary separately from jsDelivr. Upstream source: https://github.com/relatedb/relate ; Apache-2.0 license is included here.
