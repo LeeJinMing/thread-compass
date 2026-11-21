@@ -7,7 +7,7 @@ let seq=0, graph;
 let currentPacket='';
 const defaultQuestion='What approval did we need before shipping the Atlas mobile receipt redesign?';
 q('#q').value=defaultQuestion;
-q('#search').addEventListener('submit',e=>{e.preventDefault();recall(q('#q').value);});
+q('#search').addEventListener('submit',e=>{e.preventDefault();recall(q('#q').value,{reveal:true});});
 function card(r){
  const a=make('article',null,'card');
  add(a,make('span',r.role.replaceAll('-',' '),'pill evidence'),make('h3',r.title),make('p',r.note),make('code',r.ref));
@@ -37,9 +37,9 @@ function searched(s){
  }
  if(!s.lexical.length)q('#baseline').append(make('p','No matching titles.','empty'));
 }
-async function recall(text){
+async function recall(text,{reveal=false}={}){
  const id=++seq;q('#notice').textContent='Tracing graph…';
- try {if(!graph)throw Error('Local graph is still loading.');const s=graph.search(text);if(id===seq)searched(s);}
+ try {if(!graph)throw Error('Local graph is still loading.');const s=graph.search(text);if(id===seq){searched(s);if(reveal){const target=q(s.decision?'#decision':'#notice');target.tabIndex=-1;target.focus({preventScroll:true});target.scrollIntoView({block:'start'});}}}
  catch(e){if(id===seq)q('#notice').textContent=e.message;}
 }
 q('#boot').onclick=async()=>{
@@ -53,7 +53,7 @@ q('#boot').onclick=async()=>{
   const stats=graph.stats();
   q('#engine').textContent='Neo4j Relate WebAssembly 1.2.0 · '+stats.workspaces+' workspaces · '+stats.links+' saved artifacts';
   q('#examples').replaceChildren();
-  for(const a of graph.examples()){const b=make('button',a.label);b.type='button';b.onclick=()=>{q('#q').value=a.question;recall(a.question);};q('#examples').append(b);}
+  for(const a of graph.examples()){const b=make('button',a.label);b.type='button';b.onclick=()=>{q('#q').value=a.question;recall(a.question,{reveal:true});};q('#examples').append(b);}
   q('#search').hidden=false;button.hidden=true;msg.textContent='Running locally. No query is sent to a server.';
   await recall(defaultQuestion);
  }catch(e){msg.textContent=e.message;button.disabled=false;button.textContent='Retry live demo';}
