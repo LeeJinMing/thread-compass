@@ -2,6 +2,8 @@
 
 A local saved-link recall workbench. It traces a decision back to supporting material rather than assuming the closest-looking title is evidence. Built as an original project for the Relate by Neo4j Hackathon.
 
+**[Open the live browser demo](https://leejinming.github.io/thread-compass/).** No login required. Click **Open live demo**, then choose **Atlas** to trace the recorded decision to its supporting links. The demo uses a fictional dataset.
+
 ## Run the real app
 
 1. Use Node.js 20+ with npm on a platform supported by the [Relate Node SDK](https://github.com/relatedb/relate/blob/main/clients/javascript/README.md). This release was verified on Node 24.22.3, Linux x64; Windows x64 is listed as supported by the SDK but was not tested for this release.
