@@ -4,6 +4,8 @@ A local saved-link recall workbench. It traces a decision back to supporting mat
 
 **[Open the live browser demo](https://leejinming.github.io/thread-compass/).** No login required. Click **Open live demo**, then choose **Atlas** to trace the recorded decision to its supporting links. The demo uses a fictional dataset.
 
+The [66-second captioned walkthrough](https://leejinming.github.io/thread-compass/walkthrough.mp4) shows the graph paths, the title-only comparison, the context packet and an ambiguous question.
+
 ## Run the real app
 
 1. Use Node.js 20+ with npm on a platform supported by the [Relate Node SDK](https://github.com/relatedb/relate/blob/main/clients/javascript/README.md). Verified on Node 24.22.3 on Linux x64 and Node 22.20.0 on Windows x64.
