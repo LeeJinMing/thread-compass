@@ -6,8 +6,8 @@ A local saved-link recall workbench. It traces a decision back to supporting mat
 
 ## Run the real app
 
-1. Use Node.js 20+ with npm on a platform supported by the [Relate Node SDK](https://github.com/relatedb/relate/blob/main/clients/javascript/README.md). This release was verified on Node 24.22.3, Linux x64; Windows x64 is listed as supported by the SDK but was not tested for this release.
-2. From this repository folder, run `npm ci --ignore-scripts`, `npm test`, and `npm start`.
+1. Use Node.js 20+ with npm on a platform supported by the [Relate Node SDK](https://github.com/relatedb/relate/blob/main/clients/javascript/README.md). Verified on Node 24.22.3 on Linux x64 and Node 22.20.0 on Windows x64.
+2. From this repository folder, run `npm ci --include=optional --ignore-scripts --registry=https://registry.npmjs.org`, then `npm test` and `npm start`. The OS-specific native library is an optional package in the SDK. A registry mirror missing that package can report a successful install followed by a `librelate_ffi not found` error.
 3. Open http://127.0.0.1:4317/ in a browser. No sign-in, API key, hosted database or AI model is required. Press Ctrl+C in the terminal to stop the app.
 
 Select **Atlas mobile**, then compare the title-only results with the linked decision and expand **Why was this retrieved?** on the iOS screenshot diff. **Copy context packet** copies the recorded decision, caveat and synthetic references; it does not execute actions. Ask **What should we ship?** to see why the app requests clarification rather than guessing. The corroborating artifact labels are synthetic identifiers and are not links to private files.
@@ -18,7 +18,11 @@ The pinned official `@relate/relate` 1.2.0 npm library runs a native graph datab
 
 The right column is a deliberately simple baseline measuring shared title terms. On these three authored examples only, graph retrieval found all 9 labeled relevant artifacts, while title search found 2 of 9 (2 relevant among its 8 displayed results). This is a designed demonstration, not a benchmark. The automated edge-deletion test shows a still-saved artifact ceases to be retrieved once its support relationship is removed. The other tests cover native path results, honest abstention and a real loopback HTTP result and assets.
 
-The default graph is ephemeral. To test optional disk persistence, run `RELATE_PATH=./workbench.rl npm start` on POSIX or set `$env:RELATE_PATH="workbench.rl"` before `npm start` in PowerShell. Keep any real user data out of this sample project.
+### Inspect the saved graph
+
+Run `npm run inspect` to open the included [single-file Relate database](sample/workbench.rl) read-only. It prints the nine evidence paths across Atlas, Pulse and Harbor. Six additional saved artifacts have no supporting edge to a decision and therefore do not appear in the nine paths. The database contains only the fictional project fixtures.
+
+The browser demo and the default local server use separate in-memory copies so each run starts fresh. To create a writable store from the same fixtures, run `RELATE_PATH=./workbench.rl npm start` on POSIX or set `$env:RELATE_PATH="workbench.rl"` before `npm start` in PowerShell. The next run with the same path reopens that graph. Keep any real user data out of this sample project.
 
 ## License, tools and disclosure
 
